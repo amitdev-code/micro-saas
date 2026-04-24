@@ -4,9 +4,29 @@ import { Icon } from '@iconify/react';
 import { tools, toolsByCategory } from '@/lib/toolsConfig';
 
 export const metadata: Metadata = {
-  title: 'Webeze — Free Online Calculators & Smart Tools',
+  title: {
+    absolute: 'Webeze — Free Online Calculators & Tools | SIP, EMI, GST, BMI',
+  },
   description:
-    'Free online tools: SIP calculator, EMI calculator, FD calculator, GST calculator, discount calculator, age calculator, BMI calculator, word counter, JSON formatter and more.',
+    'Free online calculators & tools — SIP calculator, EMI calculator, GST calculator, BMI calculator, word counter, JSON formatter & more. Instant results, 100% private, no sign-up.',
+  alternates: {
+    canonical: 'https://webeze.in',
+  },
+  openGraph: {
+    title: 'Webeze — Free Online Calculators & Tools | SIP, EMI, GST, BMI',
+    description:
+      'Free online calculators & tools for finance, health & developers. Instant results, 100% private, no sign-up required.',
+    url: 'https://webeze.in',
+    siteName: 'Webeze',
+    locale: 'en_IN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Webeze — Free Online Calculators & Tools',
+    description:
+      'Free online calculators & tools for finance, health & developers. Instant results, no sign-up required.',
+  },
 };
 
 const CATEGORIES = [
@@ -57,12 +77,12 @@ export default function HomePage() {
           </div>
 
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white text-center leading-tight tracking-tight mb-6 animate-fade-up animate-delay-100">
-            Smart Tools for<br />
-            <span className="text-gray-400">Smarter Decisions</span>
+            Free Online Calculators<br />
+            <span className="text-gray-400">& Smart Tools</span>
           </h1>
 
           <p className="text-center text-gray-400 text-lg sm:text-xl max-w-xl mx-auto mb-10 animate-fade-up animate-delay-200">
-            Finance calculators, health tools, and developer utilities — all free, instant, and completely private.
+            SIP calculator, EMI calculator, GST calculator, BMI calculator, word counter & more — all free, instant, and 100% private.
           </p>
 
           <div className="flex flex-wrap justify-center gap-3 mb-14 animate-fade-up animate-delay-300">

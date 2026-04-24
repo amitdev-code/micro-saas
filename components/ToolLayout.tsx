@@ -52,9 +52,13 @@ export default function ToolLayout({ tool, content, relatedTools, children }: To
         </div>
       </div>
 
-      {/* Content */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Tool area — can opt into full width */}
+      <div className={`${tool.fullWidth ? 'max-w-7xl' : 'max-w-4xl'} mx-auto px-4 sm:px-6 lg:px-8 pt-8`}>
         {children}
+      </div>
+
+      {/* SEO content stays at readable width */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <SEOContent content={content} />
         <FAQ faqs={content.faqs} />
         <RelatedTools tools={relatedTools} />

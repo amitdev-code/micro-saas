@@ -111,15 +111,37 @@ export default function DatePickerCalendar({
   const [buttonRef, setButtonRef] = React.useState<HTMLButtonElement | null>(null);
   const [calendarPos, setCalendarPos] = React.useState({ top: 0, left: 0 });
 
-  React.useEffect(() => {
-    if (isOpen && buttonRef) {
+  const updatePosition = React.useCallback(() => {
+    if (buttonRef) {
       const rect = buttonRef.getBoundingClientRect();
-      setCalendarPos({
-        top: rect.bottom + 8,
-        left: rect.left,
-      });
+      const calendarWidth = 320;
+      const viewportWidth = window.innerWidth;
+      const left = rect.left + calendarWidth > viewportWidth
+        ? Math.max(8, viewportWidth - calendarWidth - 8)
+        : rect.left;
+      setCalendarPos({ top: rect.bottom + 8, left });
     }
-  }, [isOpen, buttonRef]);
+  }, [buttonRef]);
+
+  React.useEffect(() => {
+    if (isOpen) {
+      updatePosition();
+      const scrollY = window.scrollY;
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+      window.addEventListener('resize', updatePosition);
+      return () => {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        window.scrollTo(0, scrollY);
+        window.removeEventListener('resize', updatePosition);
+      };
+    }
+  }, [isOpen, updatePosition]);
 
   return (
     <>
