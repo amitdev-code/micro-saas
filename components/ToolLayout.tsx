@@ -14,6 +14,14 @@ interface ToolLayoutProps {
 }
 
 export default function ToolLayout({ tool, content, relatedTools, children }: ToolLayoutProps) {
+  if (tool.immersive) {
+    return (
+      <main className="min-h-screen w-full bg-gray-50 dark:bg-gray-950">
+        {children}
+      </main>
+    );
+  }
+
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-gray-950">
 

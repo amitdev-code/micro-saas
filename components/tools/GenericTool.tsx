@@ -342,22 +342,37 @@ const TOOL_DEFS: Record<
   'remove-extra-spaces': {
     icon: 'lucide:eraser',
     fields: [{ key: 'text', label: 'Input Text', type: 'textarea', defaultValue: 'This   is   a   sample   text.' }],
-    compute: (v) => [{ label: 'Clean Text', value: v.text.replace(/\s+/g, ' ').trim(), highlight: true }],
+    compute: (v) => [
+      { label: 'Clean Text', value: (v.text ?? '').replace(/\s+/g, ' ').trim(), highlight: true },
+    ],
   },
   'text-sorter-az': {
     icon: 'lucide:arrow-down-a-z',
     fields: [{ key: 'text', label: 'One item per line', type: 'textarea', defaultValue: 'Banana\nApple\nMango' }],
-    compute: (v) => [{ label: 'Sorted Text', value: v.text.split('\n').map((x) => x.trim()).filter(Boolean).sort().join('\n'), highlight: true }],
+    compute: (v) => [
+      {
+        label: 'Sorted Text',
+        value: (v.text ?? '')
+          .split('\n')
+          .map((x) => x.trim())
+          .filter(Boolean)
+          .sort()
+          .join('\n'),
+        highlight: true,
+      },
+    ],
   },
   'reverse-text-generator': {
     icon: 'lucide:flip-horizontal',
     fields: [{ key: 'text', label: 'Input Text', type: 'textarea', defaultValue: 'Hello World' }],
-    compute: (v) => [{ label: 'Reversed', value: v.text.split('').reverse().join(''), highlight: true }],
+    compute: (v) => [
+      { label: 'Reversed', value: (v.text ?? '').split('').reverse().join(''), highlight: true },
+    ],
   },
   'slug-generator': {
     icon: 'lucide:link-2',
     fields: [{ key: 'text', label: 'Title', type: 'text', defaultValue: 'My Awesome SEO Post' }],
-    compute: (v) => [{ label: 'Slug', value: slugify(v.text), highlight: true }],
+    compute: (v) => [{ label: 'Slug', value: slugify(v.text ?? ''), highlight: true }],
   },
   'html-to-text-converter': {
     icon: 'lucide:file-code',
@@ -368,17 +383,20 @@ const TOOL_DEFS: Record<
     icon: 'lucide:globe',
     fields: [{ key: 'text', label: 'Text or URL', type: 'text', defaultValue: 'hello world' }],
     compute: (v) => [
-      { label: 'URL Encoded', value: encodeURIComponent(v.text), highlight: true },
-      { label: 'URL Decoded', value: safeDecodeURIComponent(v.text) },
+      { label: 'URL Encoded', value: encodeURIComponent(v.text ?? ''), highlight: true },
+      { label: 'URL Decoded', value: safeDecodeURIComponent(v.text ?? '') },
     ],
   },
   'base64-encoder-decoder': {
     icon: 'lucide:lock-keyhole',
     fields: [{ key: 'text', label: 'Text', type: 'textarea', defaultValue: 'Encode this text' }],
-    compute: (v) => [
-      { label: 'Base64 Encoded', value: btoa(unescape(encodeURIComponent(v.text))), highlight: true },
-      { label: 'Base64 Decoded', value: safeBase64Decode(v.text) },
-    ],
+    compute: (v) => {
+      const t = v.text ?? '';
+      return [
+        { label: 'Base64 Encoded', value: btoa(unescape(encodeURIComponent(t))), highlight: true },
+        { label: 'Base64 Decoded', value: safeBase64Decode(t) },
+      ];
+    },
   },
 };
 

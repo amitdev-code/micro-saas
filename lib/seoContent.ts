@@ -607,6 +607,86 @@ const seoContent: Record<string, ToolSEOContent> = {
       },
     ],
   },
+
+  'fullscreen-stopwatch': {
+    h1: 'Fullscreen Stopwatch — Large Display, True Black, Images & Browser Fullscreen',
+    intro:
+      'This stopwatch is built for a minimal on-screen experience: a very large, centered time readout with only the controls you need. You can make the page fill your screen with the browser’s fullscreen feature, choose a pure black background for zero visual noise, pick built-in color gradients, use sample high-resolution background photos, or upload your own image. Start, pause, and reset work from the bar at the bottom, and the space key starts or pauses the timer when you are not focused in a number field. All extended explanation lives on this page; the control surface stays intentionally free of long paragraphs so it works well in presentations, workouts, and focus sessions.',
+    sections: [
+      {
+        heading: 'What you see in the app versus what is on this page',
+        content:
+          'The interactive area is designed to show mostly the running time, optional compact buttons (including Enter fullscreen and Exit fullscreen), and a collapsible options panel. Marketing copy, FAQ, and how-to text are in the sections below, which helps search engines and readers understand the tool while the live stopwatch can stay visually clean. That separation matches how many users want a “big clock” on the wall or on a second monitor without scrolling past essays.',
+      },
+      {
+        heading: 'How backgrounds and true black work',
+        content:
+          'Pure black is a single option that fills the view with a solid #000000 background so the digits stand out with maximum contrast. The gradient presets are generated with CSS and load instantly. The sample photos load from a public image service and are suitable as demo backgrounds; you can replace them with your own file. Custom images are read in the browser and never have to be uploaded to our server— they stay on your device while you use the tool.',
+      },
+      {
+        heading: 'Fullscreen support on different devices',
+        content:
+          'The Enter fullscreen and Exit fullscreen buttons use the standard Fullscreen API. Most desktop browsers support it for a container element. Some mobile operating systems only allow full-screen video or restrict API availability; if fullscreen is not supported, you can still use a large view by maximizing the window and using a dark background. After exiting browser fullscreen, the page returns to normal layout, including the article content below for reference.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'Does the stopwatch work offline?',
+        answer:
+          'The tool runs in your browser. If you have opened the page while online, the script may be cached, but a full offline experience is not guaranteed unless you have a PWA or cached assets. The timer itself does not require network calls to tick.',
+      },
+      {
+        question: 'Is any image I upload sent to a server?',
+        answer:
+          'No. Custom background images are loaded with a local object URL in the browser. They are not transmitted to webeze for storage or analysis during normal use. Avoid uploading sensitive documents as images; treat it like any local-only preview.',
+      },
+      {
+        question: 'What does the time format mean?',
+        answer:
+          'With hours below one hour, the stopwatch shows minutes, seconds, and centiseconds. After one hour, it switches to hours:minutes:seconds for legibility. Centiseconds are intended for light precision without mimicking a lab chronometer.',
+      },
+    ],
+  },
+
+  'fullscreen-countdown-timer': {
+    h1: 'Fullscreen Countdown Timer — Set H/M/S, Minimal UI, Black or Custom Backgrounds',
+    intro:
+      'This countdown lets you set total time with hours, minutes, and seconds, then start a large, centered display that counts down to zero. Optional pure black, gradients, default sample photos, or a custom image mirror the same background system as the fullscreen stopwatch. When the countdown reaches zero, a short beep is played in browsers that support the Web Audio API. Fullscreen, start, pause, and reset are available from a compact control strip so the main view can stay as empty as you want; detailed guidance is in the body copy and FAQ on this page rather than in the tool chrome.',
+    sections: [
+      {
+        heading: 'Countdown fields and resuming from pause',
+        content:
+          'While the timer is not running, changes to the hour, minute, and second fields update the displayed time and the amount that will be used on the next start. After you pause, the remaining time is preserved; those fields are not force-synced to the live remainder so the numbers in the form may still show your original target until you adjust them or use Reset, which realigns the display with the form values. When the timer finishes at zero, you can set a new duration in the same fields and start again.',
+      },
+      {
+        heading: 'Sound at zero and accessibility',
+        content:
+          'The completion tone is a brief oscillator beep. If your system or browser mutes auto-play, you may not hear it; the visual will still read 00:00. Screen reader users can rely on the live readout; consider pairing this tool with system accessibility settings if you need strong alerts.',
+      },
+      {
+        heading: 'Search-friendly structure without cluttering the timer',
+        content:
+          'Because the visible timer UI intentionally has little prose, this page adds structured headings, paragraphs, and frequently asked questions so that search engines and new visitors can still discover what the tool does, how to use it safely, and how it relates to a presentation or focus workflow.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'How is this different from a Pomodoro timer?',
+        answer:
+          'Pomodoro is usually fixed blocks such as 25 and 5 minutes. This tool counts down any h/m/s you set, with a presentation-oriented fullscreen look and the same background options as the stopwatch, rather than a prescribed productivity cadence.',
+      },
+      {
+        question: 'Can I use this for a conference talk?',
+        answer:
+          'Yes. Use Enter fullscreen, pick a high-contrast background, and show only the time. Rehearse once on the actual hardware: projector resolution and browser chrome may differ, and some venues restrict browser fullscreen for security policy reasons.',
+      },
+      {
+        question: 'Is my time data stored in the cloud?',
+        answer:
+          'No. The duration and running state are kept in the page during your session. There is no sign-in and no account storage of your countdowns as part of this feature.',
+      },
+    ],
+  },
 };
 
 export function getSEOContent(tool: ToolConfig): ToolSEOContent {

@@ -2,8 +2,7 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import SiteChrome from '@/components/SiteChrome';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
 
@@ -143,9 +142,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className={`${inter.className} min-h-screen flex flex-col`}>
-        <Navbar />
-        <div className="flex-1">{children}</div>
-        <Footer />
+        <SiteChrome>{children}</SiteChrome>
         <SpeedInsights />
         <Analytics />
       </body>

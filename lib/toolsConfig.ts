@@ -12,7 +12,15 @@ export interface ToolConfig {
   keywords: string[];
   relatedTools: string[];
   fullWidth?: boolean;
+  /** No tool page header or footer (SEO still in metadata and JSON-LD) */
+  immersive?: boolean;
 }
+
+/** These paths hide global Navbar, Footer, and the tool layout header/SEO block */
+export const TOOL_PATHS_CHROMELESS: readonly string[] = [
+  '/tools/fullscreen-stopwatch',
+  '/tools/fullscreen-countdown-timer',
+];
 
 export const tools: ToolConfig[] = [
   {
@@ -717,7 +725,57 @@ export const tools: ToolConfig[] = [
     category: 'Utility',
     icon: 'lucide:timer-reset',
     keywords: ['pomodoro timer', 'focus timer', '25 minute timer'],
-    relatedTools: ['countdown-timer-date-based', 'time-duration-calculator', 'typing-speed-test', 'click-speed-test-cps-test'],
+    relatedTools: [
+      'fullscreen-stopwatch',
+      'fullscreen-countdown-timer',
+      'countdown-timer-date-based',
+      'time-duration-calculator',
+    ],
+  },
+  {
+    slug: 'fullscreen-stopwatch',
+    name: 'Fullscreen Stopwatch',
+    shortDescription: 'Edge-to-edge stopwatch, big time, custom backgrounds, browser fullscreen',
+    description:
+      'Immersive fullscreen stopwatch: large center clock, optional pure black or gradient/photo backgrounds, your own image, space to start and pause, and an Enter/Exit fullscreen control for a distraction-free screen.',
+    seoTitle: 'Fullscreen Stopwatch — Big Timer, Black or Photo Background, Online',
+    seoDescription:
+      'Use a free browser fullscreen stopwatch: huge centered digits, true black or scenic backgrounds, upload your own image, one-click full screen, no clutter. Ideal for focus blocks, events, and presentations.',
+    category: 'Utility',
+    icon: 'lucide:timer',
+    keywords: [
+      'fullscreen stopwatch',
+      'online stopwatch fullscreen',
+      'big display stopwatch',
+      'dark stopwatch',
+      'minimal stopwatch',
+      'presentation timer',
+    ],
+    relatedTools: ['fullscreen-countdown-timer', 'pomodoro-timer', 'time-duration-calculator', 'countdown-timer-date-based'],
+    fullWidth: true,
+    immersive: true,
+  },
+  {
+    slug: 'fullscreen-countdown-timer',
+    name: 'Fullscreen Countdown Timer',
+    shortDescription: 'Count down with a clean full-screen view and custom or default backgrounds',
+    description:
+      'Set hours, minutes, and seconds, then use a full-screen or pure black view with a large countdown, your choice of default photos or solid colors, a custom image, and browser-level fullscreen. Sound cue when time reaches zero (where supported).',
+    seoTitle: 'Fullscreen Countdown Timer — Set Duration, Black or Image Background',
+    seoDescription:
+      'Free online fullscreen countdown: set h/m/s, huge digits, true black, gradients, built-in sample photos, or your own background image, plus enter/exit fullscreen. Browser-based; on-screen display stays minimal; article below explains usage.',
+    category: 'Utility',
+    icon: 'lucide:hourglass',
+    keywords: [
+      'fullscreen countdown timer',
+      'online countdown fullscreen',
+      'big timer countdown',
+      'dark countdown',
+      'presentation countdown',
+    ],
+    relatedTools: ['fullscreen-stopwatch', 'pomodoro-timer', 'countdown-timer-date-based', 'time-duration-calculator'],
+    fullWidth: true,
+    immersive: true,
   },
   {
     slug: 'typing-speed-test',
