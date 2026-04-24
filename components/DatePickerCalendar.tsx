@@ -108,41 +108,6 @@ export default function DatePickerCalendar({
       })
     : label;
 
-  const [buttonRef, setButtonRef] = React.useState<HTMLButtonElement | null>(null);
-  const [calendarPos, setCalendarPos] = React.useState({ top: 0, left: 0 });
-
-  const updatePosition = React.useCallback(() => {
-    if (buttonRef) {
-      const rect = buttonRef.getBoundingClientRect();
-      const calendarWidth = 320;
-      const viewportWidth = window.innerWidth;
-      const left = rect.left + calendarWidth > viewportWidth
-        ? Math.max(8, viewportWidth - calendarWidth - 8)
-        : rect.left;
-      setCalendarPos({ top: rect.bottom + 8, left });
-    }
-  }, [buttonRef]);
-
-  React.useEffect(() => {
-    if (isOpen) {
-      updatePosition();
-      const scrollY = window.scrollY;
-      document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
-      window.addEventListener('resize', updatePosition);
-      return () => {
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        window.scrollTo(0, scrollY);
-        window.removeEventListener('resize', updatePosition);
-      };
-    }
-  }, [isOpen, updatePosition]);
-
   return (
     <>
       <div className="relative">
@@ -152,7 +117,6 @@ export default function DatePickerCalendar({
 
         {/* Input Display */}
         <button
-          ref={setButtonRef}
           onClick={() => setIsOpen(!isOpen)}
           className="w-full h-11 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white text-sm font-medium px-3.5 flex items-center justify-between hover:border-gray-300 dark:hover:border-gray-600 transition-colors focus:outline-none focus:border-gray-900 dark:focus:border-white"
         >
@@ -161,17 +125,11 @@ export default function DatePickerCalendar({
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h18M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
         </button>
-      </div>
-
-      {/* Calendar Dropdown - Fixed Position */}
-      {isOpen && (
-        <div
-          className="fixed bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg z-50 p-4 w-80"
-          style={{
-            top: `${calendarPos.top}px`,
-            left: `${calendarPos.left}px`,
-          }}
-        >
+        {/* Calendar Dropdown */}
+        {isOpen && (
+          <div
+            className="absolute top-full mt-2 left-0 sm:left-auto sm:right-0 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg z-50 p-4 w-80 max-w-[calc(100vw-1rem)]"
+          >
           {/* Header */}
           <div className="flex items-center justify-between mb-4">
             <button
@@ -219,8 +177,9 @@ export default function DatePickerCalendar({
               Close
             </button>
           </div>
-        </div>
-      )}
+          </div>
+        )}
+      </div>
 
       {/* Overlay to close calendar */}
       {isOpen && (
