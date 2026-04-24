@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 interface DatePickerCalendarProps {
@@ -108,26 +108,48 @@ export default function DatePickerCalendar({
       })
     : label;
 
+  const [buttonRef, setButtonRef] = React.useState<HTMLButtonElement | null>(null);
+  const [calendarPos, setCalendarPos] = React.useState({ top: 0, left: 0 });
+
+  React.useEffect(() => {
+    if (isOpen && buttonRef) {
+      const rect = buttonRef.getBoundingClientRect();
+      setCalendarPos({
+        top: rect.bottom + 8,
+        left: rect.left,
+      });
+    }
+  }, [isOpen, buttonRef]);
+
   return (
-    <div className="relative">
-      <label className="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-2">
-        {label}
-      </label>
+    <>
+      <div className="relative">
+        <label className="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-2">
+          {label}
+        </label>
 
-      {/* Input Display */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full h-11 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white text-sm font-medium px-3.5 flex items-center justify-between hover:border-gray-300 dark:hover:border-gray-600 transition-colors focus:outline-none focus:border-gray-900 dark:focus:border-white"
-      >
-        <span>{displayValue}</span>
-        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h18M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-      </button>
+        {/* Input Display */}
+        <button
+          ref={setButtonRef}
+          onClick={() => setIsOpen(!isOpen)}
+          className="w-full h-11 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white text-sm font-medium px-3.5 flex items-center justify-between hover:border-gray-300 dark:hover:border-gray-600 transition-colors focus:outline-none focus:border-gray-900 dark:focus:border-white"
+        >
+          <span>{displayValue}</span>
+          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h18M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </button>
+      </div>
 
-      {/* Calendar Dropdown */}
+      {/* Calendar Dropdown - Fixed Position */}
       {isOpen && (
-        <div className="absolute top-full left-0 mt-2 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg z-50 p-4 w-80">
+        <div
+          className="fixed bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg z-50 p-4 w-80"
+          style={{
+            top: `${calendarPos.top}px`,
+            left: `${calendarPos.left}px`,
+          }}
+        >
           {/* Header */}
           <div className="flex items-center justify-between mb-4">
             <button
@@ -185,6 +207,6 @@ export default function DatePickerCalendar({
           onClick={() => setIsOpen(false)}
         />
       )}
-    </div>
+    </>
   );
 }
