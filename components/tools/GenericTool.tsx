@@ -278,7 +278,7 @@ const TOOL_DEFS: Record<
     icon: 'lucide:binary',
     fields: [{ key: 'binary', label: 'Binary Number', type: 'text', defaultValue: '1010' }],
     compute: (v) => {
-      const b = v.binary.trim();
+      const b = (v.binary ?? '').trim();
       const valid = /^[01]+$/.test(b);
       return [{ label: 'Decimal', value: valid ? String(parseInt(b, 2)) : 'Enter valid binary (0/1)', highlight: true }];
     },

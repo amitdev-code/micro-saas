@@ -8,9 +8,9 @@ interface CalculatorCardProps {
 
 export default function CalculatorCard({ title, icon, children }: CalculatorCardProps) {
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 overflow-hidden shadow-card">
-      {/* Header */}
-      <div className="bg-gray-950 dark:bg-white px-6 py-5 flex items-center gap-3">
+    <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-card">
+      {/* Header — rounded top; avoid overflow-hidden on the card or date pickers get clipped */}
+      <div className="bg-gray-950 dark:bg-white px-6 py-5 flex items-center gap-3 rounded-t-2xl">
         <div className="w-9 h-9 bg-white/10 dark:bg-gray-900/10 rounded-lg flex items-center justify-center shrink-0">
           <Icon icon={icon} className="w-5 h-5 text-white dark:text-gray-900" />
         </div>
@@ -20,7 +20,7 @@ export default function CalculatorCard({ title, icon, children }: CalculatorCard
         </div>
       </div>
       {/* Body */}
-      <div className="p-6">{children}</div>
+      <div className="p-6 rounded-b-2xl">{children}</div>
     </div>
   );
 }

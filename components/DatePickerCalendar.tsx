@@ -128,7 +128,7 @@ export default function DatePickerCalendar({
         {/* Calendar Dropdown */}
         {isOpen && (
           <div
-            className="absolute top-full mt-2 left-0 sm:left-auto sm:right-0 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg z-50 p-4 w-80 max-w-[calc(100vw-1rem)]"
+            className="absolute top-full left-0 z-[100] mt-2 w-80 max-w-[calc(100vw-1rem)] rounded-xl border border-gray-200 bg-white p-4 shadow-lg dark:border-gray-700 dark:bg-gray-900 sm:left-auto sm:right-0"
           >
           {/* Header */}
           <div className="flex items-center justify-between mb-4">
@@ -184,7 +184,8 @@ export default function DatePickerCalendar({
       {/* Overlay to close calendar */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-40"
+          className="fixed inset-0 z-[90] bg-black/0"
+          aria-hidden
           onClick={() => setIsOpen(false)}
         />
       )}
