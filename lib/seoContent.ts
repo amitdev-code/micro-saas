@@ -562,6 +562,51 @@ const seoContent: Record<string, ToolSEOContent> = {
       },
     ],
   },
+
+  'typing-speed-test': {
+    h1: 'Typing Speed Test (WPM) — Online Test with Accuracy & Color Feedback',
+    intro:
+      'This typing speed test measures how fast and accurately you type. Words per minute (WPM) is estimated from correct characters, while accuracy and error counts help you see whether speed comes from skill or from mistakes. Each keystroke is compared to the passage: correct characters appear in green, wrong characters in red, and the rest of the line stays dim until you reach it. You can switch between short, medium, long, and code-style samples, or write your own text in the custom mode. The entire test runs in your browser, so you can practice without signing up and without sending your custom passages to a server.',
+    sections: [
+      {
+        heading: 'How WPM, accuracy, and errors are calculated',
+        content:
+          'Net WPM is derived from the number of correct characters you typed per five-character “word” equivalent, divided by the elapsed time in minutes. Gross WPM is similar but uses total length typed, so it includes wrong keys. Accuracy is the percentage of keystrokes in your current attempt that match the target text. Errors is the number of keys that do not match the expected character. These metrics together give a more honest picture of typing than speed alone, which is what many employers and touch-typing schools emphasize.',
+      },
+      {
+        heading: 'Why green and red feedback helps learning',
+        content:
+          'Visual feedback for correct and incorrect keys reduces the need to look at the keyboard and back repeatedly. You learn to associate finger motion with the next character, similar to how dedicated typing trainers work. The red highlight is only for the characters you have already submitted for that position, so you can backspace to fix a mistake and continue without resetting the whole passage. This keeps the flow of practice focused on accuracy as well as rhythm.',
+      },
+      {
+        heading: 'Custom text and the code sample option',
+        content:
+          'If you are preparing for exams, interviews, or daily email work, you can paste or type your own passage (within the length limit) and use that as the test. The code sample mode uses a short snippet with symbols, parentheses, and line breaks, which is useful for developers who care about both typing natural language and non-alphanumeric keys. Pasting is disabled during the test so results stay comparable; use the custom text box in the “Custom” flow first, then type from memory or copy character by character if you are rehearsing a fixed script.',
+      },
+    ],
+    faqs: [
+      {
+        question: 'What is a good typing speed in WPM?',
+        answer:
+          'Typical office targets are 40 WPM and above for professional typing. 60 WPM is often considered very productive; 80+ is excellent. Speed always needs to be read together with accuracy—high WPM with many errors is usually worse than moderate speed with few mistakes.',
+      },
+      {
+        question: 'Is this typing test the same as Monkeytype or 10FastFingers?',
+        answer:
+          'The idea is similar: you type a passage and see WPM, but this tool is lightweight, runs fully on the page, and is tuned for our layout with color feedback, preset passages, and a custom text option. It is not a clone of any third-party product, but the metrics follow common WPM conventions (characters per “word” ÷ time).',
+      },
+      {
+        question: 'Can I use this on mobile or tablet?',
+        answer:
+          'You can, but a physical keyboard is best for meaningful WPM scores. On-screen keyboards change timing and are less comparable to desktop results. The interface is responsive so you can still try short passages on a phone for fun or for accessibility practice.',
+      },
+      {
+        question: 'Does the tool store or upload what I type?',
+        answer:
+          'Your typing stays in the browser for this test flow. We do not require an account, and the passage and your custom text are not sent to a server for scoring—results are calculated locally. For maximum privacy, avoid pasting highly sensitive data into the custom text field.',
+      },
+    ],
+  },
 };
 
 export function getSEOContent(tool: ToolConfig): ToolSEOContent {

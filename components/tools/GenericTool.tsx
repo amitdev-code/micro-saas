@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import CalculatorCard from '../CalculatorCard';
 import InputField from '../InputField';
-import ResultDisplay from '../ResultDisplay';
+import ResultDisplay, { ResultScrollableText } from '../ResultDisplay';
 import { getToolBySlug } from '@/lib/toolsConfig';
 import { formatCurrency, formatNumber } from '@/lib/calculations';
 
@@ -27,6 +27,17 @@ interface ToolResult {
   label: string;
   value: string;
   highlight?: boolean;
+}
+
+function getGeneratorResultLabel(slug: string): string {
+  const map: Record<string, string> = {
+    'strong-password-generator': 'Password',
+    'random-string-generator': 'Random string',
+    'uuid-generator': 'UUID',
+    'random-date-generator': 'Date',
+    'fake-name-generator': 'Name',
+  };
+  return map[slug] ?? 'Value';
 }
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -448,8 +459,6 @@ export default function GenericTool({ slug }: { slug: string }) {
   const [values, setValues] = useState<Record<string, string>>({});
   const [timerLeft, setTimerLeft] = useState(25 * 60);
   const [running, setRunning] = useState(false);
-  const [typingText, setTypingText] = useState('');
-  const [typingStartedAt, setTypingStartedAt] = useState<number | null>(null);
   const [cpsRunning, setCpsRunning] = useState(false);
   const [cpsLeft, setCpsLeft] = useState(5);
   const [cpsCount, setCpsCount] = useState(0);
@@ -499,16 +508,51 @@ export default function GenericTool({ slug }: { slug: string }) {
 
   if (!tool) return null;
 
-  if (slug === 'strong-password-generator' || slug === 'random-string-generator' || slug === 'random-color-generator' || slug === 'uuid-generator' || slug === 'random-date-generator' || slug === 'fake-name-generator') {
+  if (slug === 'random-color-generator') {
     return (
       <CalculatorCard title={title} icon={icon}>
         <button
+          type="button"
           onClick={() => setRandOutput(generateRandomBySlug(slug))}
           className="w-full py-3 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold"
         >
           Generate
         </button>
-        {randOutput && <div className="mt-4 p-4 rounded-lg border border-gray-200 dark:border-gray-700 break-all text-sm">{randOutput}</div>}
+        {randOutput && (
+          <div className="mt-4 space-y-3">
+            <div
+              className="w-full h-16 sm:h-20 rounded-xl border-2 border-gray-200 dark:border-gray-600 shadow-inner"
+              style={{ backgroundColor: randOutput }}
+              role="img"
+              aria-label={`Color preview: ${randOutput}`}
+            />
+            <ResultDisplay
+              className="mt-0"
+              results={[{ label: 'HEX', value: randOutput, highlight: true }]}
+            />
+          </div>
+        )}
+      </CalculatorCard>
+    );
+  }
+
+  if (slug === 'strong-password-generator' || slug === 'random-string-generator' || slug === 'uuid-generator' || slug === 'random-date-generator' || slug === 'fake-name-generator') {
+    const resultLabel = getGeneratorResultLabel(slug);
+    return (
+      <CalculatorCard title={title} icon={icon}>
+        <button
+          type="button"
+          onClick={() => setRandOutput(generateRandomBySlug(slug))}
+          className="w-full py-3 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold"
+        >
+          Generate
+        </button>
+        {randOutput && (
+          <ResultDisplay
+            className="mt-4"
+            results={[{ label: resultLabel, value: randOutput, highlight: true }]}
+          />
+        )}
       </CalculatorCard>
     );
   }
@@ -522,31 +566,6 @@ export default function GenericTool({ slug }: { slug: string }) {
             <button onClick={() => setRunning((p) => !p)} className="px-4 py-2 rounded bg-gray-900 dark:bg-white text-white dark:text-gray-900">{running ? 'Pause' : 'Start'}</button>
             <button onClick={() => { setRunning(false); setTimerLeft(25 * 60); }} className="px-4 py-2 rounded border">Reset</button>
           </div>
-        </div>
-      </CalculatorCard>
-    );
-  }
-
-  if (slug === 'typing-speed-test') {
-    const sample = 'The quick brown fox jumps over the lazy dog.';
-    const elapsedMin = typingStartedAt ? (Date.now() - typingStartedAt) / 60000 : 0;
-    const words = typingText.trim() ? typingText.trim().split(/\s+/).length : 0;
-    const wpm = elapsedMin > 0 ? Math.round(words / elapsedMin) : 0;
-    return (
-      <CalculatorCard title={title} icon={icon}>
-        <p className="text-sm mb-2 text-gray-500">Type this sample:</p>
-        <p className="p-3 rounded border text-sm mb-3">{sample}</p>
-        <textarea
-          className="w-full h-32 p-3 rounded border"
-          value={typingText}
-          onChange={(e) => {
-            if (!typingStartedAt) setTypingStartedAt(Date.now());
-            setTypingText(e.target.value);
-          }}
-        />
-        <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
-          <div className="p-2 rounded border">WPM: {wpm}</div>
-          <div className="p-2 rounded border">Words: {words}</div>
         </div>
       </CalculatorCard>
     );
@@ -571,7 +590,14 @@ export default function GenericTool({ slug }: { slug: string }) {
         >
           Click Me
         </button>
-        <div className="mt-3 text-sm">Time Left: {cpsLeft}s | Clicks: {cpsCount} | CPS: {cpsLeft === 0 ? (cpsCount / 5).toFixed(2) : '-'}</div>
+        <ResultDisplay
+          className="mt-4"
+          results={[
+            { label: 'CPS', value: cpsLeft === 0 && cpsCount > 0 ? (cpsCount / 5).toFixed(2) : '—', highlight: true },
+            { label: 'Time left', value: `${cpsLeft} s` },
+            { label: 'Clicks', value: String(cpsCount) },
+          ]}
+        />
       </CalculatorCard>
     );
   }
@@ -607,7 +633,14 @@ export default function GenericTool({ slug }: { slug: string }) {
         >
           Fetch IP Info
         </button>
-        {ipInfo && <pre className="mt-4 p-3 rounded border text-xs overflow-auto max-h-72">{ipInfo}</pre>}
+        {ipInfo && (
+          <ResultScrollableText
+            className="mt-4"
+            value={ipInfo}
+            variant={/^[\s]*[[{]/.test(ipInfo) ? 'pre' : 'plain'}
+            maxHeightClass="max-h-96"
+          />
+        )}
       </CalculatorCard>
     );
   }
@@ -630,7 +663,8 @@ export default function GenericTool({ slug }: { slug: string }) {
               <textarea
                 value={values[field.key] || ''}
                 onChange={(e) => setValues((prev) => ({ ...prev, [field.key]: e.target.value }))}
-                className="w-full h-28 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-3 text-sm"
+                spellCheck={false}
+                className="w-full min-h-[7rem] max-h-72 resize-y overflow-y-auto rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-3 text-sm leading-relaxed focus:outline-none focus:ring-2 focus:ring-gray-900/10 dark:focus:ring-white/10"
               />
             </div>
           ) : field.type === 'select' ? (

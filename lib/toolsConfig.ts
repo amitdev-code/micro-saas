@@ -713,14 +713,26 @@ export const tools: ToolConfig[] = [
   {
     slug: 'typing-speed-test',
     name: 'Typing Speed Test',
-    shortDescription: 'Check your typing speed and words per minute',
-    description: 'Free typing speed test with WPM output.',
-    seoTitle: 'Typing Speed Test - Check WPM Online',
-    seoDescription: 'Test typing speed and measure words per minute instantly.',
+    shortDescription: 'WPM test with live accuracy, errors, and color-coded keys',
+    description:
+      'Free online typing speed test with words per minute (WPM), accuracy percentage, and error count. See correct characters in green and mistakes in red. Pick short, medium, long, or code samples—or paste your own text.',
+    seoTitle: 'Typing Speed Test (WPM) — Free Online, Accuracy & Color Feedback',
+    seoDescription:
+      'Measure typing WPM, accuracy, and errors in the browser. Green/red feedback per character, custom passages, and code-style practice. No install; your typing stays on your device.',
     category: 'Utility',
     icon: 'lucide:keyboard',
-    keywords: ['typing speed test', 'wpm test', 'typing test online'],
+    keywords: [
+      'typing speed test',
+      'wpm test',
+      'typing test online',
+      'words per minute test',
+      'typing accuracy test',
+      'free wpm test',
+      'type test online',
+      'keyboard typing test',
+    ],
     relatedTools: ['click-speed-test-cps-test', 'pomodoro-timer', 'word-counter', 'text-sorter-az'],
+    fullWidth: true,
   },
   {
     slug: 'click-speed-test-cps-test',
