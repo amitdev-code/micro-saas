@@ -15,6 +15,7 @@ const toolMap: Record<string, React.ComponentType> = {
   'word-counter': dynamic(() => import('./tools/WordCounter'), { ssr: false }),
   'json-formatter': dynamic(() => import('./tools/JSONFormatter'), { ssr: false }),
 };
+const GenericTool = dynamic(() => import('./tools/GenericTool'), { ssr: false });
 
 function SkeletonLoader() {
   return (
@@ -32,8 +33,7 @@ function SkeletonLoader() {
 }
 
 export default function ToolRenderer({ slug }: { slug: string }) {
-  const Component = toolMap[slug];
-  if (!Component) return null;
+  const Component = toolMap[slug] ?? (() => <GenericTool slug={slug} />);
   return (
     <Suspense fallback={<SkeletonLoader />}>
       <Component />

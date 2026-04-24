@@ -1,3 +1,5 @@
+import type { ToolConfig } from './toolsConfig';
+
 export interface FAQItem {
   question: string;
   answer: string;
@@ -561,5 +563,47 @@ const seoContent: Record<string, ToolSEOContent> = {
     ],
   },
 };
+
+export function getSEOContent(tool: ToolConfig): ToolSEOContent {
+  const existing = seoContent[tool.slug];
+  if (existing) return existing;
+
+  return {
+    h1: `${tool.name} - Free Online Tool`,
+    intro: `${tool.description} Use this fast and accurate ${tool.name.toLowerCase()} to get instant results in your browser without sign-up.`,
+    sections: [
+      {
+        heading: `How to use the ${tool.name}`,
+        content: `Enter your values in the input fields and the ${tool.name.toLowerCase()} will calculate results instantly. You can update inputs any time to compare scenarios quickly.`,
+      },
+      {
+        heading: `Why use this ${tool.name.toLowerCase()} online`,
+        content: `This tool is optimized for speed, mobile usage, and SEO-friendly structure. It is free to use and runs directly in your browser for a better user experience.`,
+      },
+      {
+        heading: `${tool.name} for accurate calculations and conversions`,
+        content: `This page is built to provide clear inputs, readable outputs, and practical real-world usage. Save time by using this reliable ${tool.name.toLowerCase()} whenever needed.`,
+      },
+    ],
+    faqs: [
+      {
+        question: `Is this ${tool.name.toLowerCase()} free to use?`,
+        answer: `Yes, this ${tool.name.toLowerCase()} is completely free and available without registration.`,
+      },
+      {
+        question: `Can I use this ${tool.name.toLowerCase()} on mobile?`,
+        answer: `Yes, the tool is fully responsive and works on desktop, tablet, and mobile devices.`,
+      },
+      {
+        question: `Are results instant in this ${tool.name.toLowerCase()}?`,
+        answer: `Yes, results are generated instantly as soon as you provide valid inputs.`,
+      },
+      {
+        question: `Is my data safe while using this tool?`,
+        answer: `For most tools, processing happens in your browser. We do not require sign-up to use the calculators and utilities.`,
+      },
+    ],
+  };
+}
 
 export default seoContent;

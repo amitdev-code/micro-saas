@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import { getToolBySlug, getRelatedTools, tools } from '@/lib/toolsConfig';
-import seoContent from '@/lib/seoContent';
+import { getSEOContent } from '@/lib/seoContent';
 import ToolLayout from '@/components/ToolLayout';
 import ToolRenderer from '@/components/ToolRenderer';
 
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default function ToolPage({ params }: Props) {
   const tool = getToolBySlug(params.slug);
-  const content = seoContent[params.slug];
+  const content = tool ? getSEOContent(tool) : null;
 
   if (!tool || !content) notFound();
 
