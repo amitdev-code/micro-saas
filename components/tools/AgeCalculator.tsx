@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Icon } from '@iconify/react';
 import CalculatorCard from '../CalculatorCard';
+import DatePickerCalendar from '../DatePickerCalendar';
 import { calculateAge } from '@/lib/calculations';
 
 export default function AgeCalculator() {
@@ -34,11 +35,12 @@ export default function AgeCalculator() {
   return (
     <CalculatorCard title="Age Calculator" icon="lucide:calendar-days">
       <div className="space-y-4 mb-6">
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Date of Birth</label>
-          <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} max={today}
-            className="w-full h-11 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white text-sm font-medium px-3.5 focus:outline-none focus:border-gray-900 dark:focus:border-white transition-colors" />
-        </div>
+        <DatePickerCalendar
+          value={dob}
+          onChange={setDob}
+          maxDate={today}
+          label="Date of Birth"
+        />
       </div>
 
       {result ? (
