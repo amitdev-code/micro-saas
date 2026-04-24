@@ -641,13 +641,22 @@ export const tools: ToolConfig[] = [
   {
     slug: 'random-string-generator',
     name: 'Random String Generator',
-    shortDescription: 'Create random strings for testing and IDs',
-    description: 'Free random string generator.',
-    seoTitle: 'Random String Generator - Instant Tool',
-    seoDescription: 'Generate random strings quickly for testing and development.',
+    shortDescription: 'Random text with custom length, A–Z, a–z, 0–9, symbols, or hex',
+    description:
+      'Generate random strings with adjustable length (1–512) and character sets: uppercase, lowercase, numbers, symbols, optional ambiguous-character exclusion, and hexadecimal (0–9, a–f) mode with quick presets.',
+    seoTitle: 'Random String Generator — Length, Upper, Lower, Numbers, Symbols, Hex',
+    seoDescription:
+      'Create random strings online: choose length, include upper/lower case, digits, symbols, exclude ambiguous characters, or generate hex strings. Free browser-based tool for devs and QA.',
     category: 'Text',
     icon: 'lucide:a-large-small',
-    keywords: ['random string generator', 'random text generator', 'string generator'],
+    keywords: [
+      'random string generator',
+      'random text generator',
+      'alphanumeric string generator',
+      'hex string generator',
+      'uppercase random string',
+      'lowercase random string',
+    ],
     relatedTools: ['strong-password-generator', 'uuid-generator', 'base64-encoder-decoder', 'slug-generator'],
   },
   {

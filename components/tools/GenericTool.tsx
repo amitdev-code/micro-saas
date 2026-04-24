@@ -32,7 +32,6 @@ interface ToolResult {
 function getGeneratorResultLabel(slug: string): string {
   const map: Record<string, string> = {
     'strong-password-generator': 'Password',
-    'random-string-generator': 'Random string',
     'uuid-generator': 'UUID',
     'random-date-generator': 'Date',
     'fake-name-generator': 'Name',
@@ -448,9 +447,38 @@ function safeBase64Decode(value: string) {
   }
 }
 
+const PW_UPPER = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+const PW_LOWER = 'abcdefghijkmnpqrstuvwxyz';
+const PW_DIGITS = '23456789';
+const PW_SPECIAL = '!@#$%^&*';
+const PW_ALL = PW_UPPER + PW_LOWER + PW_DIGITS + PW_SPECIAL;
+
+function randomFrom(pool: string): string {
+  return pool[Math.floor(Math.random() * pool.length)] ?? '';
+}
+
+function shuffleString(s: string): string {
+  const a = s.split('');
+  for (let i = a.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a.join('');
+}
+
+/** At least one each: upper, lower, digit, special. Length 14 (always ≥ 8). */
 function generatePassword() {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%^&*';
-  return Array.from({ length: 14 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+  const len = 14;
+  const parts = [
+    randomFrom(PW_UPPER),
+    randomFrom(PW_LOWER),
+    randomFrom(PW_DIGITS),
+    randomFrom(PW_SPECIAL),
+  ];
+  for (let i = parts.length; i < len; i += 1) {
+    parts.push(randomFrom(PW_ALL));
+  }
+  return shuffleString(parts.join(''));
 }
 
 export default function GenericTool({ slug }: { slug: string }) {
@@ -536,7 +564,7 @@ export default function GenericTool({ slug }: { slug: string }) {
     );
   }
 
-  if (slug === 'strong-password-generator' || slug === 'random-string-generator' || slug === 'uuid-generator' || slug === 'random-date-generator' || slug === 'fake-name-generator') {
+  if (slug === 'strong-password-generator' || slug === 'uuid-generator' || slug === 'random-date-generator' || slug === 'fake-name-generator') {
     const resultLabel = getGeneratorResultLabel(slug);
     return (
       <CalculatorCard title={title} icon={icon}>
@@ -706,7 +734,6 @@ export default function GenericTool({ slug }: { slug: string }) {
 
 function generateRandomBySlug(slug: string) {
   if (slug === 'strong-password-generator') return generatePassword();
-  if (slug === 'random-string-generator') return Math.random().toString(36).slice(2, 14);
   if (slug === 'random-color-generator') return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
   if (slug === 'uuid-generator') return crypto.randomUUID();
   if (slug === 'random-date-generator') {

@@ -15,6 +15,7 @@ const toolMap: Record<string, React.ComponentType> = {
   'word-counter': dynamic(() => import('./tools/WordCounter'), { ssr: false }),
   'json-formatter': dynamic(() => import('./tools/JSONFormatter'), { ssr: false }),
   'typing-speed-test': dynamic(() => import('./tools/TypingSpeedTest'), { ssr: false }),
+  'random-string-generator': dynamic(() => import('./tools/RandomStringGenerator'), { ssr: false }),
 };
 const GenericTool = dynamic(() => import('./tools/GenericTool'), { ssr: false });
 
