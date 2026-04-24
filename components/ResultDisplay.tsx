@@ -19,7 +19,8 @@ export default function ResultDisplay({ results, copyText }: ResultDisplayProps)
   const [copied, setCopied] = useState(false);
 
   async function handleCopy() {
-    const text = copyText || results.map((r) => `${r.label}: ${r.value}`).join('\n');
+    // Copy only raw result values to avoid extra descriptive text.
+    const text = results.map((r) => r.value).join('\n');
     await navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);

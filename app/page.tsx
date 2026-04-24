@@ -5,17 +5,18 @@ import { tools, toolsByCategory } from '@/lib/toolsConfig';
 
 export const metadata: Metadata = {
   title: {
-    absolute: 'Webeze — Free Online Calculators & Tools | SIP, EMI, GST, BMI',
+    absolute:
+      'Free Online Calculators, Converters & Generators | Finance, Utility, Text Tools',
   },
   description:
-    'Free online calculators & tools — SIP calculator, EMI calculator, GST calculator, BMI calculator, word counter, JSON formatter & more. Instant results, 100% private, no sign-up.',
+    'Use free online calculators, converters, generators, and utility tools. Calculate EMI, SIP, interest, GST, age, and more with instant browser-based results.',
   alternates: {
     canonical: 'https://webeze.in',
   },
   openGraph: {
-    title: 'Webeze — Free Online Calculators & Tools | SIP, EMI, GST, BMI',
+    title: 'Free Online Calculators, Converters & Generators',
     description:
-      'Free online calculators & tools for finance, health & developers. Instant results, 100% private, no sign-up required.',
+      'Finance, utility, converter and text tools for instant calculations and quick daily tasks.',
     url: 'https://webeze.in',
     siteName: 'Webeze',
     locale: 'en_IN',
@@ -23,9 +24,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Webeze — Free Online Calculators & Tools',
+    title: 'Free Online Calculators, Converters & Generators',
     description:
-      'Free online calculators & tools for finance, health & developers. Instant results, no sign-up required.',
+      'Calculate EMI, SIP, GST, interest and use text, converter, and utility tools online for free.',
   },
 };
 
@@ -60,6 +61,60 @@ const FEATURES = [
   { icon: 'lucide:link', title: 'Shareable URLs', desc: 'Results are in the URL — copy and share any calculation.' },
 ];
 
+const SEO_SECTIONS = [
+  {
+    title: 'What makes these online tools useful every day',
+    body: 'Webeze is designed for practical daily use, not just one-time calculations. Most users need quick answers for money decisions, conversions, writing tasks, or date planning. Instead of opening multiple apps, you can use one clean interface and switch between finance calculators, converter tools, and text utilities in seconds. Every tool is built to be simple for beginners while still useful for power users who need speed. This combination of clarity and coverage is what makes a tool hub valuable long term.',
+  },
+  {
+    title: 'Finance calculators for smarter money planning',
+    body: 'Financial planning improves when decisions are based on clear numbers. A SIP calculator helps estimate wealth growth through regular investments. EMI and credit-card EMI calculators reveal repayment burden before you borrow. Interest calculators show the real cost of loans and the potential return from savings. Tools like inflation and retirement calculators help project future needs so current plans are more realistic. Instead of relying on rough mental math, these calculators provide structured outputs you can compare and act on.',
+  },
+  {
+    title: 'Conversion tools for quick and accurate unit changes',
+    body: 'Unit conversion is one of the most frequent online tasks. Height and weight converters are useful for fitness forms and international standards. Temperature and area converters help with academics, travel, and property use cases. Time converters are useful in productivity and scheduling workflows where seconds, minutes, and hours need to be interpreted quickly. Accurate conversion matters because small mistakes can create large confusion, especially in health, finance, or engineering contexts. These tools are built to provide instant and dependable conversion results.',
+  },
+  {
+    title: 'Text and utility tools that save real time',
+    body: 'Text utilities improve speed in content writing, SEO workflows, and development tasks. Slug generators help create clean URLs. Space remover and sorter tools make datasets readable. Encoder and decoder tools are useful for debugging and web-safe formatting. For creators and marketers, these small operations repeat many times each week, so a focused utility reduces friction and errors. This is why lightweight browser tools continue to be relevant even for advanced users.',
+  },
+  {
+    title: 'Why browser-based tools are better for privacy',
+    body: 'Many online tools ask for sign-up before use, which slows down workflow and creates privacy risk for simple tasks. Webeze tools are designed for direct access with no account requirement for standard usage. In many cases, processing is done in the browser itself, which helps users work faster with confidence. If a user is calculating personal finances, editing text drafts, or testing data conversions, this local-first behavior improves trust and usability.',
+  },
+  {
+    title: 'How to choose the right calculator for your goal',
+    body: 'Start by identifying your decision, not the formula. If your goal is wealth growth, begin with SIP, PPF, or NPS calculators. If your goal is debt management, compare EMI, loan eligibility, and interest tools side by side. For productivity and routine work, choose utility and text tools that reduce repetitive manual formatting. The best approach is to run multiple scenarios, not a single input set. Small changes in tenure, rate, contribution, or timing can significantly change outcomes.',
+  },
+];
+
+const HOME_FAQS = [
+  {
+    q: 'Are these tools free to use?',
+    a: 'Yes. The calculators, converters, and generators on Webeze are free for regular use and available without complicated onboarding.',
+  },
+  {
+    q: 'Which tools are most useful for finance beginners?',
+    a: 'New users typically start with EMI Calculator, SIP Calculator, PPF Calculator, Compound Interest Calculator, and Inflation Calculator. These tools cover borrowing, investing, and long-term money planning.',
+  },
+  {
+    q: 'Can I use these tools on mobile?',
+    a: 'Yes. The full tool hub is responsive and works across phone, tablet, and desktop so you can calculate values quickly on any device.',
+  },
+  {
+    q: 'How do I improve decision quality using calculators?',
+    a: 'Run multiple scenarios with different values for rate, tenure, or amount. Compare outputs rather than relying on a single estimate. This gives better planning confidence.',
+  },
+  {
+    q: 'Do these tools support SEO and content workflows?',
+    a: 'Yes. Slug Generator, text cleanup tools, and encoding utilities are especially useful for SEO writers, editors, developers, and operations teams.',
+  },
+  {
+    q: 'Why does more content matter for ranking?',
+    a: 'Search engines prefer pages that explain intent clearly and cover a topic comprehensively. Detailed, useful content can improve relevance and ranking potential when quality remains high.',
+  },
+];
+
 export default function HomePage() {
   return (
     <main>
@@ -77,12 +132,12 @@ export default function HomePage() {
           </div>
 
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white text-center leading-tight tracking-tight mb-6 animate-fade-up animate-delay-100">
-            Free Online Calculators<br />
-            <span className="text-gray-400">& Smart Tools</span>
+            Free Online Calculators,<br />
+            <span className="text-gray-400">Converters & Generators</span>
           </h1>
 
           <p className="text-center text-gray-400 text-lg sm:text-xl max-w-xl mx-auto mb-10 animate-fade-up animate-delay-200">
-            SIP calculator, EMI calculator, GST calculator, BMI calculator, word counter & more — all free, instant, and 100% private.
+            Finance calculator, utility converter, and text generator tools for fast, accurate, and private browser-based usage.
           </p>
 
           <div className="flex flex-wrap justify-center gap-3 mb-14 animate-fade-up animate-delay-300">
@@ -167,7 +222,7 @@ export default function HomePage() {
                     {tool.shortDescription}
                   </p>
                   <div className="flex items-center text-sm font-semibold text-gray-900 dark:text-white gap-1.5 group-hover:gap-2.5 transition-all">
-                    Try it free
+                    Open tool
                     <Icon icon="lucide:arrow-right" className="w-4 h-4" />
                   </div>
                 </Link>
@@ -206,6 +261,47 @@ export default function HomePage() {
                 <Icon icon={tool.icon} className="w-3.5 h-3.5 shrink-0" />
                 {tool.name}
               </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ── Long-form SEO content ── */}
+        <section className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            Free calculators, converters, and utility tools for daily use
+          </h2>
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
+            This page is built for users who need fast, accurate online tools without friction. Whether you are
+            calculating loan EMI, planning SIP investments, converting units, checking date differences, or cleaning
+            text for SEO, the goal is the same: save time and make better decisions with clear outputs. Explore the
+            sections below to understand when to use each tool category and how to get better outcomes from them.
+          </p>
+
+          <div className="space-y-7">
+            {SEO_SECTIONS.map((section) => (
+              <article key={section.title}>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                  {section.title}
+                </h3>
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                  {section.body}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* ── Home FAQ ── */}
+        <section className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-5">
+            {HOME_FAQS.map((item) => (
+              <article key={item.q}>
+                <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-1.5">{item.q}</h3>
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">{item.a}</p>
+              </article>
             ))}
           </div>
         </section>

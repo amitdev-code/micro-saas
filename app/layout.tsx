@@ -65,6 +65,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: BASE_URL,
   },
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
+  },
 };
 
 const websiteSchema = {
