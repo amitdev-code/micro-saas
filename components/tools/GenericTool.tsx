@@ -6,6 +6,8 @@ import InputField from '../InputField';
 import ResultDisplay, { ResultScrollableText } from '../ResultDisplay';
 import { getToolBySlug } from '@/lib/toolsConfig';
 import { formatCurrency, formatNumber } from '@/lib/calculations';
+import { additionalToolDefinitions } from '@/lib/newToolBatch';
+import { highTrafficToolDefinitions } from '@/lib/highTrafficToolDefs';
 
 type FieldType = 'number' | 'text' | 'date' | 'textarea' | 'select';
 
@@ -41,7 +43,7 @@ function getGeneratorResultLabel(slug: string): string {
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
-const TOOL_DEFS: Record<
+const baseToolDefinitions: Record<
   string,
   { icon: string; fields: ToolField[]; compute: (values: Record<string, string>) => ToolResult[] }
 > = {
@@ -377,7 +379,9 @@ const TOOL_DEFS: Record<
   'html-to-text-converter': {
     icon: 'lucide:file-code',
     fields: [{ key: 'html', label: 'HTML Input', type: 'textarea', defaultValue: '<h1>Hello</h1><p>World</p>' }],
-    compute: (v) => [{ label: 'Plain Text', value: v.html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim(), highlight: true }],
+    compute: (v) => [
+      { label: 'Plain Text', value: (v.html ?? '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim(), highlight: true },
+    ],
   },
   'url-encoder-decoder': {
     icon: 'lucide:globe',
@@ -399,6 +403,11 @@ const TOOL_DEFS: Record<
     },
   },
 };
+
+const TOOL_DEFS: Record<
+  string,
+  { icon: string; fields: ToolField[]; compute: (values: Record<string, string>) => ToolResult[] }
+> = { ...baseToolDefinitions, ...additionalToolDefinitions, ...highTrafficToolDefinitions };
 
 function todayString(offset = 0) {
   const d = new Date(Date.now() + offset * DAY_MS);

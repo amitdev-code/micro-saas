@@ -18,6 +18,8 @@ const toolMap: Record<string, React.ComponentType> = {
   'random-string-generator': dynamic(() => import('./tools/RandomStringGenerator'), { ssr: false }),
   'fullscreen-stopwatch': dynamic(() => import('./tools/FullscreenStopwatchTool'), { ssr: false }),
   'fullscreen-countdown-timer': dynamic(() => import('./tools/FullscreenCountdownTool'), { ssr: false }),
+  'text-to-handwriting-generator': dynamic(() => import('./tools/HandwritingTool'), { ssr: false }),
+  'instagram-grid-splitter': dynamic(() => import('./tools/InstagramGridTool'), { ssr: false }),
 };
 const GenericTool = dynamic(() => import('./tools/GenericTool'), { ssr: false });
 
