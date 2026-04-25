@@ -2,6 +2,48 @@
 
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
+import { aiContentTools } from '@/lib/aiToolsConfig';
+
+const ImageCompressorTool = dynamic(
+  () =>
+    import('./tools/ImageBatchProcessorTool').then((m) => {
+      function ImageCompressorToolComponent() {
+        return <m.default slug="image-compressor-canvas" />;
+      }
+      return ImageCompressorToolComponent;
+    }),
+  { ssr: false },
+);
+const ImageResizerTool = dynamic(
+  () =>
+    import('./tools/ImageBatchProcessorTool').then((m) => {
+      function ImageResizerToolComponent() {
+        return <m.default slug="image-resizer" />;
+      }
+      return ImageResizerToolComponent;
+    }),
+  { ssr: false },
+);
+const JpgToPngTool = dynamic(
+  () =>
+    import('./tools/ImageBatchProcessorTool').then((m) => {
+      function JpgToPngToolComponent() {
+        return <m.default slug="jpg-to-png-converter" />;
+      }
+      return JpgToPngToolComponent;
+    }),
+  { ssr: false },
+);
+const FaviconTool = dynamic(
+  () =>
+    import('./tools/ImageBatchProcessorTool').then((m) => {
+      function FaviconToolComponent() {
+        return <m.default slug="favicon-generator" />;
+      }
+      return FaviconToolComponent;
+    }),
+  { ssr: false },
+);
 
 const toolMap: Record<string, React.ComponentType> = {
   'sip-calculator': dynamic(() => import('./tools/SIPCalculator'), { ssr: false }),
@@ -20,8 +62,15 @@ const toolMap: Record<string, React.ComponentType> = {
   'fullscreen-countdown-timer': dynamic(() => import('./tools/FullscreenCountdownTool'), { ssr: false }),
   'text-to-handwriting-generator': dynamic(() => import('./tools/HandwritingTool'), { ssr: false }),
   'instagram-grid-splitter': dynamic(() => import('./tools/InstagramGridTool'), { ssr: false }),
+  'image-compressor-canvas': ImageCompressorTool,
+  'image-resizer': ImageResizerTool,
+  'jpg-to-png-converter': JpgToPngTool,
+  'favicon-generator': FaviconTool,
+  'base64-image-converter': dynamic(() => import('./tools/Base64ImageConverterTool'), { ssr: false }),
 };
+const AIGeneratorTool = dynamic(() => import('./tools/AIGeneratorTool'), { ssr: false });
 const GenericTool = dynamic(() => import('./tools/GenericTool'), { ssr: false });
+const AI_TOOL_SLUGS = new Set(aiContentTools.map((t) => t.slug));
 
 function SkeletonLoader() {
   return (
@@ -39,10 +88,10 @@ function SkeletonLoader() {
 }
 
 export default function ToolRenderer({ slug }: { slug: string }) {
-  const Component = toolMap[slug] ?? (() => <GenericTool slug={slug} />);
+  const Component = toolMap[slug];
   return (
     <Suspense fallback={<SkeletonLoader />}>
-      <Component />
+      {Component ? <Component /> : AI_TOOL_SLUGS.has(slug) ? <AIGeneratorTool slug={slug} /> : <GenericTool slug={slug} />}
     </Suspense>
   );
 }

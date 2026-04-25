@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Icon } from '@iconify/react';
 import { tools, toolsByCategory } from '@/lib/toolsConfig';
+import { aiContentTools } from '@/lib/aiToolsConfig';
 
 export const metadata: Metadata = {
   title: {
@@ -116,6 +117,9 @@ const HOME_FAQS = [
 ];
 
 export default function HomePage() {
+  const aiToolSlugSet = new Set(aiContentTools.map((tool) => tool.slug));
+  const heroTools = tools.filter((tool) => !aiToolSlugSet.has(tool.slug));
+
   return (
     <main>
       {/* ── Hero ── */}
@@ -157,7 +161,7 @@ export default function HomePage() {
 
           {/* Tool pills */}
           <div className="flex flex-wrap justify-center gap-2 animate-fade-up animate-delay-300">
-            {tools.map((tool) => (
+            {heroTools.map((tool) => (
               <Link key={tool.slug} href={`/tools/${tool.slug}`}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 glass-dark rounded-full text-xs font-medium text-gray-300 hover:text-white hover:bg-white/15 transition-all">
                 <Icon icon={tool.icon} className="w-3.5 h-3.5 shrink-0" />

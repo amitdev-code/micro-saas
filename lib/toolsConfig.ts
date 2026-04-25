@@ -1,4 +1,6 @@
 import { highTrafficTools } from './highTrafficToolsConfig';
+import { studentTools } from './studentToolsConfig';
+import { aiContentTools } from './aiToolsConfig';
 
 export type ToolCategory = 'Finance' | 'Utility' | 'Text';
 
@@ -1224,6 +1226,8 @@ export const tools: ToolConfig[] = [
     relatedTools: ['meta-tag-generator', 'youtube-title-generator', 'url-encoder-decoder', 'slug-generator'],
   },
   ...highTrafficTools,
+  ...studentTools,
+  ...aiContentTools,
 ];
 
 export const toolsByCategory = tools.reduce<Record<ToolCategory, ToolConfig[]>>(

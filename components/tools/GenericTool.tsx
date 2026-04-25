@@ -8,6 +8,8 @@ import { getToolBySlug } from '@/lib/toolsConfig';
 import { formatCurrency, formatNumber } from '@/lib/calculations';
 import { additionalToolDefinitions } from '@/lib/newToolBatch';
 import { highTrafficToolDefinitions } from '@/lib/highTrafficToolDefs';
+import { studentToolDefinitions } from '@/lib/studentToolDefs';
+import { aiToolDefinitions } from '@/lib/aiToolDefs';
 
 type FieldType = 'number' | 'text' | 'date' | 'textarea' | 'select';
 
@@ -407,7 +409,13 @@ const baseToolDefinitions: Record<
 const TOOL_DEFS: Record<
   string,
   { icon: string; fields: ToolField[]; compute: (values: Record<string, string>) => ToolResult[] }
-> = { ...baseToolDefinitions, ...additionalToolDefinitions, ...highTrafficToolDefinitions };
+> = {
+  ...baseToolDefinitions,
+  ...additionalToolDefinitions,
+  ...highTrafficToolDefinitions,
+  ...studentToolDefinitions,
+  ...aiToolDefinitions,
+};
 
 function todayString(offset = 0) {
   const d = new Date(Date.now() + offset * DAY_MS);
